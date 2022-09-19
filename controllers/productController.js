@@ -10,7 +10,7 @@ exports.getAllProducts = catchAsync(async (req, res) => {
         timeOfRequest: req.requestTime,
         results: products.length,
         data: {
-            products,
+            products:products,
         },
     });
 });
@@ -39,4 +39,32 @@ exports.getProductById = catchAsync(async (req, res) => {
             status: "not found",
         });
     }
+});
+
+//UPDATE
+exports.updateProduct = catchAsync(async (req, res) => {
+    const id = req.params.id
+    const body = req.body
+    const updateProduct = await Product.findOneAndUpdate(id, body)
+
+    res.status(200).json({
+        status: "update",
+        data: {
+            product: updateProduct
+        },
+    });
+});
+
+//DELETE
+exports.deleteProduct = catchAsync(async (req, res) => {
+
+    const id = req.params.id
+    const deleteProduct = await Product.findOneAndDelete(id)
+
+    res.status(200).json({
+        status: "delete",
+        data: {
+            product: deleteProduct,
+        },
+    });
 });

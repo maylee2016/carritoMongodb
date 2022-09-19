@@ -9,6 +9,12 @@ productRouter
     .all(authController.protect)
     .get(productController.getAllProducts)
   .post(productController.addProduct);
-productRouter.route("/:id").get(productController.getProductById);
+
+//view, update and delete
+  productRouter.route("/:id")
+  .all(authController.protect)
+  .get(productController.getProductById)
+  .put(productController.updateProduct)
+  .delete(productController.deleteProduct);
 
 module.exports = productRouter;
